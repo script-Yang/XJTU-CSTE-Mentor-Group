@@ -1,0 +1,62 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, color, framed, graphicx, hyperref, mathrsfs}
+\usepackage{listings}
+\usepackage{ctex}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+
+\usepackage{palatino}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, graphs, positioning, quotes}
+
+\usepackage{xcolor}
+\usepackage{xcolor}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\usepackage{multirow}
+\usepackage{booktabs}
+
+\title{\textbf{TCS作业七：Condition Number and Ill-Conditioned Matrix}}
+\author{计试2101仲星焱}
+\date{\today}
+
+\begin{document}
+	\textbf{TCS作业七：Condition Number and Ill-Conditioned Matrix}
+	
+	计试2101仲星焱
+	
+	\today
+	
+	\paragraph{7.1}
+	
+	不是一般性地，设 $|a_1|>|a_2|>\cdots>|a_n|$。
+	
+	不难发现 $\forall v \in \mathbb R^n,Av$ 能够的取值只有 $\textit{span}\{a_1,a_2,\dots,a_n\}$，由于其中向量相互正交，在 $|v|=1$ 的情况下，设 $v=[v_1,v_2,\dots,v_n]^T$，值 $|Av|=\sqrt{\sum\limits_{i=1}^n|a_i|^2v_i^2}\leq |a_1|$，该小于等于号由柯西不等式易得，取等当且仅当 $v_1=1,v_i=0\forall i\neq 1$。
+	
+	后续的奇异向量由于须与之前的正交，不难发现其能够的取值在 $\textit{span}\{a_{i+1},\dots,a_n\}$ 当中，以此类推，可以发现 $A$ 的奇异值从大到小即为所有 $|a_i|$ 的从大到小排列。
+	
+	\paragraph{7.2}
+	
+	只需要注意到 $\lambda x = Ax\Rightarrow |\lambda|=|Ax|/|x|$ 而 $\sigma_1=\max\limits_{|x|=1,x\in \mathbb R^n}|Ax|$，显然有 $\sigma_1\geq |\lambda|$ 即对于实对称矩阵，最大的奇异值不小于任何特征值的绝对值。
+		
+	考虑到 $\frac{1}{\lambda_n}$ 和 $\frac{1}{\sigma_n}$ 分别是 $A^{-1}$ 绝对值最大的特征值和奇异值，有 $\frac{1}{\lambda_n} \leq \frac{1}{\sigma_n}$。
+	
+	由此 $\frac{|\lambda_1|}{|\lambda_n|}\leq \frac{\sigma_1}{\sigma_n}=||A||\cdot||A^{-1}||=\textbf{cond}(A)$。
+	
+	\paragraph{7.3} 由于$\forall v \in \mathbb R^n, v^TA^TAv=|Av|^2\geq 0$，而取等号当且仅当 $Av = 0$，而由于 $A$ 非奇异，故当且仅当 $v=0$ 可以取等号，由此得到 $A^TA$ 是正定矩阵。
+	
+	\paragraph{7.4} 
+	不失 一般性地，设 $|\lambda_1|>|\lambda_2|>\cdots>|\lambda_n| $
+	
+	考虑 $A$ 的单位正交分解， $A=P^TDP$，其中 $P$ 是单位正交矩阵， $D=\textit{diag}(\lambda_1,\lambda_2,\dots,\lambda_n)$。 
+	
+	由此，考虑其最大奇异值 $\max\limits_{|v|=1}|Av|=\max\limits_{|v|=1}|P^TDPv|$，而 $P$ 和 $P^T$ 都是单位正交矩阵，取 $w=Pv$ 显然 $|w|=1$，故 $\sigma_1=\max\limits_{|w|=1}|Dw|\leq |\lambda_1|$，不等号由柯西不等式可得。
+	
+	同理，以此类推，由于所有特征值互不相同，所有奇异值即为所有特征值的绝对值。
+	
+\end{document}

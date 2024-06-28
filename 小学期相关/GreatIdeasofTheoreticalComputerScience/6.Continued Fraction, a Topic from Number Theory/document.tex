@@ -1,0 +1,173 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, color, framed, graphicx, hyperref, mathrsfs}
+\usepackage{listings}
+\usepackage{ctex}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+
+\usepackage{palatino}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, graphs, positioning, quotes}
+
+\usepackage{xcolor}
+\usepackage{xcolor}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\usepackage{multirow}
+\usepackage{booktabs}
+
+\title{\textbf{TCS作业六：Continued Fractions, a Topic from Number Theory}}
+\author{计试2101仲星焱}
+\date{\today}
+
+\begin{document}
+	\textbf{TCS作业六：Continued Fraction, a Topic from Number Theory}
+	
+	计试2101仲星焱
+	
+	\today
+	
+	\paragraph{6.1}
+	$$
+	\begin{aligned}
+		\frac{p_0}{q_0}&=[a_0]\\
+		\frac{p_1}{q_1}&=a_0+1/a_1=[a_0,a_1]
+	\end{aligned}
+	$$
+	
+	考虑数学归纳，假设所有 $n<k,\frac{p_n}{q_n}=[a_0,\dots,a_n]$ 成立，对于 $n=k$ $$
+	\begin{aligned}
+		\frac{p_k}{q_k}&=\frac{a_{k}(a_{k-1}p_{k-2}+p_{k-3})+p_{k-2}}{a_{k}(a_{k-1}q_{k-2}+q_{k-3})+q_{k-2}}\\&=\frac{(a_{k-1}+1/a_k)p_{k-2}+p_{k-3}}{(a_{k-1}+1/a_k)q_{k-2}+q_{k-3}}\\&=[a_0,\dots,a_{k-1}+\frac{1}{a_k}]\\&=[a_0,\dots,a_k]
+	\end{aligned}
+	$$
+	
+	\paragraph{6.2}
+	考虑数学归纳，假设对于 $n<k$，在 $a_n<a_n'$ 时，对于奇数 $n$ 有 $[a_0,a_1,\dots,a_n]>[a_0,a_1,\dots,a_n']$，对于偶数 $n$ 相反。
+	
+	在 $a_n<a_n'$ 时，有 $a_{n-1}+\frac{1}{a_n}>a_{n-1}+\frac{1}{a_n'}$，令 $n=k$。
+	
+	若 $k$ 为偶数则 $k-1$ 为奇数，有 $[a_0,a_1,\dots, a_{n-1}+1/a_n]<[a_0,a_1,\dots, a_{n-1}+1/a_n']$ ，进而$[a_0,a_1,\dots,a_n]<[a_0,a_1,\dots,a_n']$
+	
+	 $k$ 为奇数的时候同理。
+	
+	\paragraph{6.3}
+	
+	对于任意正有理数 $$
+	\begin{aligned}
+		\frac{p}q & =[a_0,a_1,\dots,a_N]\\
+		&=[a_0,a_1,\dots, a_N+1,-1]
+	\end{aligned}$$
+	
+	命题成立，证毕。
+	
+	\paragraph{6.4}
+	
+	先考虑 $k=0,l>0$ 的情况，需要找到 $t=[a_0,a_1,\dots,a_{l-1},a_0,\dots]$ 的解。由连分数的性质，我们得到$t=[a_0,a_1,\dots,a_{l-1},t]$，接下来我们考虑化简得到的方程形式。
+	
+	通过观察不难发现，化简中途和结果可以表示为 $$\frac{p_it+u_i}{q_it+v_i}=[a_i,\cdots,a_{l-1},t]$$ 其中 $p_0=v_0=1,u_0=q_0=0$，考虑使用数学归纳证明这个关系，则不难发现只需要令 $$\begin{aligned}p_{i+1}&=q_i\\v_{i+1}&=u_i\\q_{i+1}&=p_i-a_iq_i\\v_{i+1}&=u_i-a_iv_i\end{aligned}$$ 即可，如此最终可以得到 $$\frac{p_lt+u_l}{q_lt+v_l}=t$$
+	为一个不超过二次的方程，由此我们知道 $\exists \hat{u},\hat{v},\hat{w},\hat{x}\in \mathbb Z,\textit{s.t.} t=\frac{\hat{v}+\hat{w}\sqrt{\hat{x}}}{\hat{u}}$。
+	
+	现在考虑 $k>0$ 的情况，设循环开始截取的连分数极限值为 $t_k=[a_k,a_{k+1},\dots,a_{k+l-1},a_k,\dots]$，设最终求值为 $r=[a_0,a_1,\dots]$
+	
+	$$
+	\begin{aligned}
+		r&=[a_0,a_1,\dots,a_{k-1},t_k]\\
+		&=[a_0,a_1,\dots,a_{k-2},t_{k-1}]\\
+		&=\cdots\\
+		&=t_0
+	\end{aligned}
+	$$
+	
+	其中 $t_i=a_i+\frac{1}{t_{i+1}}$，只需要证明所有 $t_i=\frac{v_i+w_i\sqrt{x}}{u_i}$ 可以递推即可，直接递推不难发现
+	$$\begin{aligned}
+		u_{i-1}&=v_i^2-w_i^2x\\
+		v_{i-1}&=u_iv_i+a_iu_{i-1}\\
+		v_{i-1}&=-u_iw_i
+	\end{aligned}$$
+	
+	故最终可以表示为 $\frac{v+w\sqrt x}u$，
+	证毕。
+	
+	\paragraph{6.5}
+	
+	引理1：{\kaishu 整系数多项式有可数无穷多}
+	
+	设从小到大第 $i$  个质数为 $p_i$。由唯一分解定理，任意正整数 $n=\prod\limits_{i=1}^\infty p_i^{a_i}$，其中 $a_i$ 对于任意 $n$ 有唯一确定的值。
+	
+	设整系数多项式的集合为 $\mathbb F$ 考虑如下映射：$f:\mathbb N_+\rightarrow\mathbb F$
+	
+	$$
+	f(n)=f(\prod_{i=1}^\infty p_i^{a_i})=\sum_{i=0}^\infty a_{i+1}x^i
+	$$
+	
+	显然，这是一个双射。由此，我们证明 $\mathbb F$ 与 $\mathbb N_+$ 等势。即整系数多项式有可数无穷多。
+	
+	引理2：{\kaishu 代数数有可数无穷多}
+	
+	设 $R_p$ 表示多项式 $p$ 的所有根的集合，设所有代数数的集合为 $A$，有 $$A=\bigcup\limits_{p\in\mathbb F}R_p$$ 即可数个有限集合的并，故 $|A|=\aleph_0$
+	
+	引理3：{\kaishu 超越数有不可数无穷多}
+	
+	设 $T$ 表示超越数集合， $T = \mathbb R / A$，而 $|\mathbb R|=\aleph,|A|=\aleph_0$，故 $|T|=\aleph$ 为不可数无穷多。
+	
+	故不存在单射 $f:T\rightarrow A$。
+	
+	\paragraph{6.6}
+	
+	考虑反证法，假设不满足条件的 $n$ 存在，则 $\exists k\in mathbb Z_+ k<2^{n-1}\sqrt 3 < k + \frac{1}{2^{n+2}}$，平方得到： $$\begin{aligned}
+		k^2<2^{2n-2}\cdot 3&<k^2+\frac{k}{2^{n+1}}+\frac{1}{2n+4}\\
+		&<k^2+\frac{\sqrt{3}}4+\frac{1}{16}\\
+		&<k^2+1
+		\end{aligned}
+		$$
+	
+	而 $k^2$ 与 $k^2+1$ 之间不可能有整数 $2^{2n-2}\cdot 3$，故不存在不满足条件的 $n$，原命题成立。
+	
+	\paragraph{6.7}
+	
+	考虑证明其逆否命题：{\kaishu 如果$\xi$ 为有理数，则只存在有限组 $(a,b)$ 满足 $0<|\xi - \frac{a}b|<\frac{1}{b^\alpha}$。}
+	
+	一个比较自然想法是考虑 $b$，枚举 $a$。展开绝对值进行推导：
+	$$
+	\begin{aligned}
+		-\frac{1}{b^\alpha}&<\xi-\frac{a}b<\frac{1}{b^\alpha}\\
+		\Rightarrow b(\xi-\frac{1}{b^{\alpha}})&<a<b(\xi+\frac{1}{b^\alpha})
+	\end{aligned}
+	$$
+	令 $\xi=\frac{p}q,\gcd(p,q)=1$，$$\frac{bp}q-\frac{1}{b^{\alpha-1}}<a<\frac{bp}q+\frac{1}{b^{\alpha-1}}$$
+	对于足够大的 $b$，$$\frac{1}{b^{\alpha-1}}<\frac{1}q$$ 有
+	$$
+	\frac{bp-1}q<a<\frac{bp+1}q
+	$$
+	要使 $a$ 存在正整数取值，由于 $\gcd(p,q)=1$，故只可能为 $\frac{bp}q$，但是此时 $|\xi-\frac{a}b|=0$，不满足要求。
+	
+	故对于有理数 $\xi$ 来说，可能的 $b$ 取值存在上限，$b$ 只有有限个取值，单个 $b$ 也只有有限个可能的 $a$ 的取值。
+	
+	因此，若 $\xi$ 为有理数，可能的 $a,b$ 取值只有有限组。
+	
+	其逆否命题也成立，若 $a,b$ 取值有无限种可能，$\xi$ 为无理数。
+	
+	\paragraph{6.8}
+	
+	首先容易注意到所有偶数 $n,a_n>1$，所有奇数 $n,a_n\leq 1$。
+	
+	引理1：{\kaishu 所有 $a_n$ 互不相同}
+	
+	首先， $a_n=1$ 当且仅当 $n=1$，显然，从 $a_2>1,a_3<1$ 分奇偶进行数学归纳即可。
+	
+	然后，假设存在 $a_n=a_m$，我们找到一组 $n,m, s.t. n+m$ 最小。不难发现 $n,m$ 必同奇偶，且都大于 $1$，若同为偶数则 $a_{n/2}=a_{m/2}$，否则 $a_{n-1}=a_{m-1}$。与 $n+m$ 最小矛盾，即不存在 $a_n=a_m$。
+	
+	引理2：{\kaishu $\forall p,q \in \mathbb Z_+ \gcd(p,q)=1,\exists n\in \mathbb N_+, s.t. a_n=\frac{p}q$}。
+	
+	考虑利用构造法来找到这个 $n$，设 $\frac{p}q = [b_0,b_1,\dots,b_N]$，其中 $b_0$ 可以为 $0$，剩下的 $b_i$ 全部为正整数，显然，用欧几里得迭代得到的连分数表示唯一。
+	
+	则只需要令 $n=2^{b_0}(1+2^{b_1}(1+2^{b_2}(1+\cdots)))$，不难验证$a_n$ 的递推过程本质上就是连分数的计算过程， $a_n = \frac{p}q$。
+	
+	结合引理1和引理2，证毕。
+	
+\end{document}
