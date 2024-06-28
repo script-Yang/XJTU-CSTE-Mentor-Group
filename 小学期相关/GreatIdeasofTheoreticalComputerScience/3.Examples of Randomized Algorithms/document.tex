@@ -1,0 +1,80 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, color, framed, graphicx, hyperref, mathrsfs}
+\usepackage{listings}
+\usepackage{ctex}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+
+\usepackage{palatino}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, graphs, positioning, quotes}
+
+\usepackage{xcolor}
+\usepackage{xcolor}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\usepackage{multirow}
+\usepackage{booktabs}
+
+\title{\textbf{TCS作业三：Examples of Ramdomized Algorithms}}
+\author{计试2101仲星焱}
+\date{\today}
+
+\begin{document}
+	\textbf{TCS作业三：Examples of Randomized Algorithms}
+	
+	计试2101仲星焱
+	
+	\today
+	
+	\paragraph{3.1} 考虑对T进行二次差分
+	
+	$$\Delta T(n) = 1 - \frac{2}{n(n-1)}\sum_{k=0}^{n-2} T(k)+ \frac{2} n T(n-1)$$
+	$$\Delta^2T(n) = \frac{4}{n(n-1)(n-2)}\sum_{k=0}^{n-3}T(k)+\frac{2}n(T(n-1)-T(n-2)) > 0$$
+	
+	显然为下凸函数。
+	
+	\paragraph{3.2}
+	考虑任何一个最小割，它必然将图分为两部分，考虑点对 $\forall 2\leq i\leq n,(1,i)$，由鸽巢原理，至少有一个点对被某个最小割分到了两个不同的连通分量当中。
+	
+	由最大流最小割定理，任意 $S-T$ 最大流的流量等于 $S-T$ 最小割的权值，故我们枚举 $i=2,3,\dots,n$，计算 $1-i$ 的最大流即可，根据最大流最小割定理，我们计算出所有 $1-i$ 最大流中最小的即为所求最小割。由于 $FF$ 算法复杂度为 $O(FE)$，此处为简单图故流量不超过 $n-1$，由此得到 $FF$ 在该图上复杂度为 $O(n^3)$，执行 $n$ 次则为 $O(n^4)$。
+	
+	以上解答完毕，下面是补充说明。
+	
+	简单证明最大流-最小割定理：
+	
+	引理1：{\kaishu 任意 $S-T$ 流 $F$ 的流量不会超过任意 $S-T$ 割 $C$ 的权值。}
+	
+	考虑对于 $C$ ，逐一去掉其中的边，同时每删去一条边就对 $F$ 的失效流量进行退流。不难发现最终 $F$ 全部退流，否则 $C$ 不可能是一个割。考虑每次删去的边的权值都大于等于退掉的流量，可知引理 $1$ 成立。
+	
+	引理2：{\kaishu 对于任意最大流 $F$，我们可以构造一个割与其权值相同。}
+	
+	考虑从 $S$ 开始进行深度优先搜索，如果当前前进经过的边为 $F$ 中满流的边，不前进，将边删去并加入 $C$ 中。显然 $C$ 是一个 $S-T$ 割，否则 $F$ 仍然可以通过剩余的网络中 $S-T$ 的通路进行增广，不可能是最大流。
+	
+	结合引理1和引理2可知任意图 $S-T$最大流 等于 $S-T$ 最小割。
+	
+	实际上，全局最小割存在更加简洁的 Stoer-wagner 算法，基于一般图最小割的更强的结论——不会出现超过两个连通分量，复杂度为 $O(n^3)$，由于和本题无关此处不做赘述。
+	
+	\paragraph{3.3}
+	设运行 $k$ 次，设失败概率为 $p$，有 $$\begin{aligned}
+		p\leq(1-\frac{2}{n(n-1)})^k\leq \epsilon\\
+		k\geq \log_\epsilon (1-\frac{2}{n(n-1)})
+	\end{aligned}$$
+	
+	\paragraph{3.4}
+	
+	考虑猴子排序，每次对其进行随机打乱，不妨认为是 $Knuth$ 洗牌法，也即 C++ 中 std::random\_shuffle 的实现。
+	
+	容易发现，单次排序成功的概率不小于 $1/n!$，当有重复元素时概率更高。则进行 $k$ 次算法内排序成功概率为 $1-(1-1/n!)^k$。
+	
+	\paragraph{3.5}
+	考虑 Karger 算法的单次执行，其停机时得到一个割，而对于任意一个最小割，得到该最小割的概率是 $P=Pr[\textit{edge in  min-cut never picked}]\geq \frac{2}{n(n-1)}$。
+	
+	不难发现得到任意两个不同的最小割是互斥事件，设有 $k$ 个不同的最小割，由概率的性质我们知道 $Pr[\textit{Karger's algorithm ends with a min-cut}]\leq kP\leq 1 \Rightarrow k \leq {n\choose 2}$，证毕。
+	
+\end{document}

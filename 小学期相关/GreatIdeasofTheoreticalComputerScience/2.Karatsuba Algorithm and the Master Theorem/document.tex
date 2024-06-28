@@ -1,0 +1,90 @@
+\documentclass[12pt, a4paper, oneside]{ctexart}
+\usepackage{amsmath, amsthm, amssymb, bm, color, framed, graphicx, hyperref, mathrsfs}
+\usepackage{listings}
+\usepackage{ctex}
+
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{subfigure}
+
+\usepackage{palatino}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows, graphs, positioning, quotes}
+
+\usepackage{xcolor}
+\usepackage{xcolor}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\usepackage{multirow}
+\usepackage{booktabs}
+
+\title{\textbf{TCS作业二：Karatsuba Algorithm and the Master Theorem}}
+\author{计试2101仲星焱}
+\date{\today}
+
+\begin{document}
+	\textbf{TCS作业二：Karatsuba Algorithm and the Master Theorem}
+	
+	计试2101仲星焱
+	
+	\today
+	
+	\paragraph{2.1}
+	
+	容易注意到 $f(x)g(x) = aux^3+(av+bu)x^2+(aw+bv)x+bw$。
+	
+	只需要改写为 $$f(x)g(x)= aux^3+[(a+b)(u+v)-au-bv]x^2+(aw+bv)x+bw$$ 或 $$f(x)g(x) = aux^3+(av+bu)x^2+[(a+b)(v+w)-av-bw]x+bw$$
+
+	即利用 Karatsuba 对高位或低位进行改进，可以用 $5$ 次乘法完成计算。
+	
+	\paragraph{2.2}
+	即证明对于 $\epsilon > 0$，$T(n) = aT(\frac  n b) + f(n), f(n) = \Theta(n^{\log_ba - \epsilon})$ 的解为 $T(n) = \Theta(n^{\log_ba})$
+	
+	考虑展开 $$\begin{aligned}
+		T(n)&=\sum_{i=0}^{log_b n}a^if(\frac n {b^i})\\
+		&=\sum_{i=0}^{log_b n}a^i\Theta((\frac{n}{b^i})^{\log_b a - \epsilon})\\
+		&=\Theta( \sum_{i=0}^{\log_b n} a^i(\frac{n}{b^i})^{\log_b a -\epsilon} )\\
+		&=\Theta(n^{\log_b a -\epsilon}\sum_{i=0}^{\log_b n}b^{i\epsilon})\\
+		&=\Theta(\frac{1}{b^\epsilon - 1}(n^{\log_b a}b^\epsilon-n^{\log_b a -\epsilon}))\\
+		&=\Theta(n^{\log_b a})
+	\end{aligned}$$
+	
+	证毕。
+	
+	\paragraph{2.3}
+	
+	容易发现 $f(n)$ 不能是单调递增的，这带来的启示似乎考虑具有波动性质的函数，比如三角函数。
+	
+	考虑 $T(n)=aT(\frac{n} b) +f(n), f(n)=n^c(d-e\sin(n))$。
+	
+	令正规条件不成立 $af(\frac{n} b) > f(n)$，代入，令 $sin(n)$ 取得极值可以发现 $c < \log_b a + \log_b\frac{d+e}{d-e}$, 即此时无法断言对于任意的 $n$，$f(n)$ 满足正规条件，同时 $c > \log_b a$ 条件可以满足，此例子可满足题意要求。
+	
+	\paragraph{2.4}
+	
+	不妨设 $T(n)=\Theta(n^c)$，则有在 $n$ 充分大的时候 $M1n^c\leq T(n) \leq M2n^c$
+	
+	$$
+	\begin{aligned}
+		T(n)&=4T(\frac n 2 ) + 9 T(\frac n 3) + 36T(\frac n 6)\\
+		&\leq M2(\frac{4}{2^c}+\frac{9}{3^c}+\frac{36}{6^c})n^c
+	\end{aligned}
+	$$
+	
+	同理 $$T(n)\geq M1(\frac{4}{2^c}+\frac{9}{3^c}+\frac{36}{6^c})n^c$$
+	
+	而本身有 $M1n^c\leq T(n) \leq M2n^c$
+	
+	故 $f(n)=O(n^c)$ 对任意合法的 $M_1,M_2$ 成立当且仅当 $\frac{4}{2^c}+\frac{9}{3^c}+\frac{36}{6^c}=1$，得 $c=3$，代回知成立。
+	
+	综上 $f(n) = \Theta(n^3)$。
+	
+	\paragraph{2.5}
+	
+	设 $S(1)=c$，由 $$S(n)=12S(n-1)-32S(n-2)$$ 解特征方程知 $$S(n)=C_18^n+C_24^n$$ 代入 $S(1)=c,S(2)=4c+64$ 可知 $$S(n)=2\cdot 8^n+(c-16)4^{n-1}$$
+	
+	故 $S(n)=\Theta(8^n)$
+	
+\end{document}
