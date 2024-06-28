@@ -8,7 +8,7 @@ XJTU-Computer Science and Technology Experimental Class-Mentor-Group
 我们的根本宗旨是建设一个完整的具有计试特色的组织以消除“绝对挂科”。基本目标为通过举办学科与生涯规划讲座、编写复习资料等学习活动为所有有学习意愿或有学习需求的同学提供便捷、高效的学习平台。
 
 # 电子课本网站
-[电子课本](https://xue.shinonomelab.net/)
+[电子课本平台地址](https://xue.shinonomelab.net/)
 
 # 资料说明
 
