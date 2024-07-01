@@ -1,3 +1,6 @@
+语言/Language : 简体中文 | [English Version](./杂项文件/README-english.md)
+
+
 # XJTU-CSTE-Mentor-Group
 XJTU-Computer Science and Technology Experimental Class-Mentor-Group
 
