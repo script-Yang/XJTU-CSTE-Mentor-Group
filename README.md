@@ -11,4 +11,8 @@ XJTU-Computer Science and Technology Experimental Class-Mentor-Group
 [电子课本平台地址](https://xue.shinonomelab.net/)
 
 # 资料说明
+本仓库中的大部分资料为学辅成员编写。请尽量不要进行广泛传播和商业使用。
 
+如果发现资料侵权，请联系仓库管理员删除。
+
+如果你有有价值的资料想要分享，欢迎向我们的GitHub仓库提交PR。
