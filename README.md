@@ -1,4 +1,4 @@
-语言/Language : 简体中文 | [English Version](./杂项文件/README_en.md)
+语言/Language : 简体中文 | [English Version](./杂项文件/README.md)
 
 
 # XJTU-CSTE-Mentor-Group
